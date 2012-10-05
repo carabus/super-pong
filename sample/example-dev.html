@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jam example</title>
+</head>
+<body>
+<h1>This project demonstrates how a Jam library can be used in development mode</h1>
+
+<canvas id="myCanvas" width="600" height="600"></canvas>
+
+<script src="../jam/require.js"></script>
+<script src="../jam/jquery/jquery.js"></script>
+<script src="../source/main.js"></script>
+<script src="../source/game-logic.js"></script>
+
+
+
+<script>
+    require(['pong-renderer'], function (app) {
+        app.init();
+    });
+</script>
+
+</body>
+</html>

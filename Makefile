@@ -1,0 +1,1 @@
+jam compile -i source/main.js -i source/game-logic.js -i jquery -o jam/compiled.js
