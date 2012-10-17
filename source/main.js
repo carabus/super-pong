@@ -4,10 +4,10 @@
  * Date: 28/09/12
  * Time: 11:48 PM
  */
-define('pong-renderer', ['jquery', 'game-logic'], function ($, logic) {
+define('pong-renderer', ['jquery', 'game-logic', 'renderer'], function ($, logic, renderer) {
 
-  var game = new logic.game(function(position) {
-    console.log(position);
+  var game = new logic.game(function (position) {
+    //console.log(position);
   });
 
   function drawRectangle(myRect, context) {
@@ -46,42 +46,48 @@ define('pong-renderer', ['jquery', 'game-logic'], function ($, logic) {
   }
 
 
+  var oldInit = function () {
+    window.requestAnimFrame = (function (callback) {
+      return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+        function (callback) {
+          window.setTimeout(callback, 1000 / 60);
+        };
+    })();
 
+    window.onload = function () {
+      var canvas = document.getElementById("myCanvas");
+      var context = canvas.getContext("2d");
+      context.fillStyle = "#000000";
+      context.fillRect(0, 0, 600, 600);
+
+      var myRect = {
+        x:10,
+        y:10,
+        width:20,
+        height:20
+      };
+
+      drawRectangle(myRect, context);
+
+      setTimeout(function () {
+        var startTime = (new Date()).getTime();
+        animate(myRect, canvas, context, startTime);
+      }, 1000);
+    };
+  };
 
   return {
-    init:function (){
-      window.requestAnimFrame = (function (callback) {
-        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
-          function (callback) {
-            window.setTimeout(callback, 1000 / 60);
-          };
-      })();
-
-      window.onload = function () {
-        var canvas = document.getElementById("myCanvas");
-        var context = canvas.getContext("2d");
-        context.fillStyle = "#000000";
-        context.fillRect(0, 0, 600, 600);
-
-        var myRect = {
-          x:10,
-          y:10,
-          width:20,
-          height:20
-        };
-
-        drawRectangle(myRect, context);
-
-        setTimeout(function () {
-          var startTime = (new Date()).getTime();
-          animate(myRect, canvas, context, startTime);
-        }, 1000);
-      };
+    init: function(divId){
+      renderer.init(divId)
     },
 
-    startGame: function () {alert("start game");},
+    startGame:function () {
+      alert("start game");
+    },
 
-    movePaddle: function () {alert("movePaddle");}
+    movePaddle:function () {
+      alert("movePaddle");
+    }
 
   }
 });
