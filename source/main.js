@@ -2,7 +2,7 @@
  * Created with JetBrains WebStorm.
  * User: konstantinraev
  * Date: 28/09/12
- * Time: 11:48 PM
+ * Time: 11:48
  */
 define('pong-renderer', ['jquery', 'game-logic', 'renderer'], function ($, logic, renderer) {
 
